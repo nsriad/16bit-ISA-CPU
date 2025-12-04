@@ -9,10 +9,10 @@ module alu (
 );
     always @(*) begin
         case (alu_op)
-            4'b0000: result = a + b;   // ADD
+            4'b0000: result = a + b;   // ADD/ADDI/LD/ST
             4'b0001: result = a - b;   // SUB
             4'b0010: result = a & b;   // AND
-            4'b0011: result = a | b;   // OR
+            4'b0011: result = a | b;   // OR/ORI
             4'b0100: result = a - b;   // CMP
             default: result = 16'h0000;
         endcase

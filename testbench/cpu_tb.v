@@ -1,22 +1,32 @@
 `timescale 1ns/1ps
+
 module cpu_tb;
     reg clk;
-    reg [15:0] a, b;
-    reg [3:0] alu_op;
-    wire [15:0] result;
-    wire N, Z, P;
+    reg reset;
 
-    alu uut(.a(a), .b(b), .alu_op(alu_op), .result(result), .N(N), .Z(Z), .P(P));
+    // Instantiate CPU
+    cpu_top uut (
+        .clk(clk),
+        .reset(reset)
+    );
+
+    // Clock generation
+    always #5 clk = ~clk;   // 100 MHz clock (10ns period)
 
     initial begin
-        $dumpfile("sim/alu_test.vcd");
+        $dumpfile("sim/cpu_test.vcd");
         $dumpvars(0, cpu_tb);
 
-        a = 16'd10; b = 16'd5; alu_op = 4'b0000; #10;  // ADD
-        a = 16'd10; b = 16'd5; alu_op = 4'b0001; #10;  // SUB
-        a = 16'hF0F0; b = 16'h0FF0; alu_op = 4'b0010; #10;  // AND
-        a = 16'hF0F0; b = 16'h0FF0; alu_op = 4'b0011; #10;  // OR
-        a = 16'd5; b = 16'd5; alu_op = 4'b0100; #10;  // CMP
+        clk = 0;
+        reset = 1;
+
+        #20;
+        reset = 0;
+
+        // Run for a while until HALT is fetched
+        #500;
+
+        $display("CPU simulation complete.");
         $finish;
     end
 endmodule

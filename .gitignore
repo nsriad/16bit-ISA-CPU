@@ -1,0 +1,8 @@
+# Ignore simulation artifacts
+*.vcd
+*.out
+sim/*.vcd
+sim/*.out
+
+# VS Code
+.vscode/

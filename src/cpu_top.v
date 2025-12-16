@@ -138,8 +138,8 @@ module cpu_top (
     // ------------------------------------------------------------
     // Immediate Generation
     // ------------------------------------------------------------
-    // imm6 for LD/ST (signed)
-    wire [15:0] imm6_sext = {{10{instr[5]}}, instr[5:0]};
+    // imm8 for LD/ST (signed)
+    wire [15:0] imm6_sext = {{10{instr[5]}}, instr[7:0]};
 
     // imm8 for ADDI/ORI/LUI
     wire [15:0] imm8_sext = {{8{instr[7]}}, instr[7:0]};   // signed

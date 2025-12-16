@@ -8,6 +8,12 @@ module reg_file (
     output [15:0] read_data1, read_data2
 );
     reg [15:0] regs[`REG_COUNT-1:0];
+    integer i;
+    initial begin
+        for (i = 0; i < 8; i = i + 1) begin
+            regs[i] = 16'd0;
+        end
+    end
 
     assign read_data1 = regs[rs1];
     assign read_data2 = regs[rs2];
